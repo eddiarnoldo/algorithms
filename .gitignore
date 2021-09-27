@@ -1,5 +1,5 @@
 .idea/
-out/
 AlgorithmsStudy.iml
 .DS_Store
 algorithms.iml
+target/
