@@ -1,6 +1,7 @@
 package medium;
 
 import java.util.Stack;
+import java.util.stream.Stream;
 
 public class DecodeString {
 
@@ -11,7 +12,7 @@ public class DecodeString {
      */
 
     public static void main(String[] args) {
-        System.out.println(decode("5[a]2[b]"));
+        System.out.println(decode("y2[w2[cx3[a]]]"));
         System.out.println(decode("2[3[c]2[t]]"));
         System.out.println(decode("3[a2[c]]"));
     }
