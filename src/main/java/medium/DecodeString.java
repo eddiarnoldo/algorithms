@@ -1,7 +1,6 @@
 package medium;
 
 import java.util.Stack;
-import java.util.stream.Stream;
 
 public class DecodeString {
 
@@ -18,40 +17,35 @@ public class DecodeString {
     }
 
     public static String decode(String s) {
-        Stack<String> results = new Stack<>();
+        Stack<String> strings = new Stack<>();
         Stack<Integer> multipliers = new Stack<>();
-        String res = "";
         int idx = 0;
-        int length = s.length();
+        String res = "";
 
-        while (idx < length) {
-            if (Character.isDigit(s.charAt(idx))) {
-                int num = 0;
-                multipliers.push(num);
-                while (Character.isDigit(s.charAt(idx))) {
-                    num = multipliers.pop();
-                    num = num * 10 + (s.charAt(idx) - '0');
-                    multipliers.push(num);
-                    idx++;
-                }
-            } else if (s.charAt(idx) == '[') {
-                results.push(res);
+        int multiplier = 0;
+        while (idx < s.length()) {
+            char currChar = s.charAt(idx);
+            if (Character.isDigit(currChar)) {
+                int numericValue = Character.getNumericValue(currChar);
+                multiplier = (multiplier * 10) + numericValue;
+            } else if (currChar == '[') {
+                multipliers.push(multiplier);
+                strings.push(res);
+                multiplier = 0;
                 res = "";
-                idx++;
-            } else if (s.charAt(idx) == ']') {
-                StringBuilder temp = new StringBuilder(results.pop());
-                int count = multipliers.pop();
-                for (int i = 0; i < count; i++) {
-                    temp.append(res);
-                }
-                res = temp.toString();
-                idx++;
-            } else {
-                res += s.charAt(idx);
-                idx++;
-            }
-        }
+            } else if (currChar == ']') {
+                StringBuilder tmp = new StringBuilder(strings.pop());
+                int times = multipliers.pop();
 
+                for (int i = 0; i < times; i++) {
+                    tmp.append(res);
+                }
+                res = tmp.toString();
+            } else {
+                res += currChar;
+            }
+            idx++;
+        }
         return res;
     }
 
