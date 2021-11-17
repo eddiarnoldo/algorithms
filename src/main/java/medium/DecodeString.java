@@ -1,5 +1,6 @@
 package medium;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class DecodeString {
@@ -26,8 +27,7 @@ public class DecodeString {
         while (idx < s.length()) {
             char currChar = s.charAt(idx);
             if (Character.isDigit(currChar)) {
-                int numericValue = Character.getNumericValue(currChar);
-                multiplier = (multiplier * 10) + numericValue;
+                multiplier = (multiplier * 10) + currChar - '0' ;
             } else if (currChar == '[') {
                 multipliers.push(multiplier);
                 strings.push(res);
